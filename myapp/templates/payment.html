@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Hotel Payment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{
+    font-family:'Poppins',sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#141e30,#243b55);
+    display:flex; justify-content:center; align-items:center; padding:20px;
+}
+.container{ width:600px; background:white; border-radius:25px; overflow:hidden; box-shadow:0 15px 40px rgba(0,0,0,0.4); }
+.header{ background:linear-gradient(to right,#6a11cb,#2575fc); color:white; text-align:center; padding:30px; }
+.header h1{ font-size:32px; }
+.header p{ margin-top:10px; opacity:0.9; }
+.content{ padding:30px; }
+.payment-options{ display:flex; justify-content:center; gap:20px; margin-bottom:30px; }
+.option{ width:150px; text-align:center; padding:20px; border-radius:20px; cursor:pointer; transition:0.3s; border:2px solid #eee; }
+.option:hover{ transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.1); }
+.option img{ width:60px; height:60px; }
+.option p{ margin-top:10px; font-weight:600; }
+.section{ display:none; }
+.active{ display:block; }
+label{ display:block; margin-top:15px; margin-bottom:8px; font-weight:600; }
+input,select{ width:100%; padding:14px; border-radius:12px; border:1px solid #ccc; font-size:15px; outline:none; }
+input:focus, select:focus{ border-color:#2575fc; }
+input[readonly]{ background-color: #f0f0f0; cursor: not-allowed; }
+.row{ display:flex; gap:12px; }
+.row div{ width:100%; }
+.pay-btn{ width:100%; margin-top:25px; padding:15px; border:none; border-radius:14px; background:linear-gradient(to right,#6a11cb,#2575fc); color:white; font-size:17px; font-weight:700; cursor:pointer; transition:0.3s; }
+.pay-btn:hover{ transform:translateY(-3px); }
+.qr-area{ text-align:center; margin-top:20px; }
+#qrcode{ display:flex; justify-content:center; margin-top:15px; }
+.timer-badge{ display:inline-block; margin-top:10px; padding:6px 14px; background:#fff1f2; color:#e11d48; border-radius:20px; font-weight:600; font-size:14px; border:1px solid #ffe4e6; }
+.listening-text{ font-size:13px; color:#6b7280; margin-top:12px; display:flex; justify-content:center; align-items:center; gap:6px; }
+.listening-indicator{ width:8px; height:8px; background:#22c55e; border-radius:50%; display:inline-block; animation:pulse 1.5s infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:0.3; transform:scale(1.2); } }
+.success-page{ display:none; background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:white; padding:40px; text-align:center; }
+.success-icon{ width:120px; height:120px; background:#22c55e; border-radius:50%; margin:auto; display:flex; justify-content:center; align-items:center; font-size:65px; box-shadow:0 0 30px rgba(34,197,94,0.8); }
+.success-page h2{ margin-top:25px; font-size:42px; }
+.receipt{ background:rgba(255,255,255,0.08); margin-top:25px; padding:25px; border-radius:18px; text-align:left; }
+.receipt p{ margin:14px 0; font-size:16px; }
+.receipt strong{ color:#38bdf8; }
+.buttons{ display:flex; justify-content:center; gap:15px; margin-top:30px; flex-wrap:wrap; }
+.buttons button{ padding:13px 24px; border:none; border-radius:30px; color:white; font-size:16px; font-weight:600; cursor:pointer; }
+.home-btn{ background:linear-gradient(to right,#00b09b,#96c93d); }
+.pdf-btn{ background:linear-gradient(to right,#fc466b,#3f5efb); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PAYMENT PAGE -->
+    <div id="paymentPage">
+        <div class="header">
+            <h1>Premium Hotel Payment</h1>
+            <p>Booking for: <strong>{{ location }}</strong> ({{ hotelName }})</p>
+        </div>
+
+        <div class="content">
+            <div class="payment-options">
+                <div class="option" onclick="showSection('cardSection')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Card">
+                    <p style="color:green;">Card Payment</p>
+                </div>
+
+                <div class="option" onclick="showSection('bankSection')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png" alt="Net Banking">
+                    <p style="color:orange;">Net Banking</p>
+                </div>
+
+                <div class="option" onclick="showSection('qrSection')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="QR">
+                    <p style="color:#6a11cb;">QR Payment</p>
+                </div>
+            </div>
+
+            <!-- CARD PAYMENT FORM -->
+            <form id="cardSection" class="section active" onsubmit="event.preventDefault(); cardPayment();">
+                <label>Amount (₹)</label>
+                <input type="text" id="cardAmount" value="{{ amount }}" readonly>
+
+                <label>Name on Card</label>
+                <input type="text" id="cardName" value="{{ fullName }}" required placeholder="Enter cardholder name">
+
+                <label>Card Number</label>
+                <input type="text" id="cardNumber" placeholder="1111 2222 3333 4444" maxlength="19" required oninput="formatCardNumber(this)">
+
+                <div class="row">
+                    <div>
+                        <label>Expiry (MM/YY)</label>
+                        <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required oninput="formatExpiry(this)">
+                    </div>
+                    <div>
+                        <label>CVV</label>
+                        <input type="password" id="cardCVV" placeholder="123" maxlength="4" required oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+                    </div>
+                </div>
+
+                <button type="submit" class="pay-btn">Pay ₹{{ amount }} Now</button>
+            </form>
+
+            <!-- BANK PAYMENT FORM -->
+            <form id="bankSection" class="section" onsubmit="event.preventDefault(); bankPayment();">
+                <label>Select Bank</label>
+                <select id="bankSelect" required>
+                    <option value="State Bank of India">State Bank of India</option>
+                    <option value="HDFC Bank">HDFC Bank</option>
+                    <option value="ICICI Bank">ICICI Bank</option>
+                    <option value="Axis Bank">Axis Bank</option>
+                    <option value="Bank of Baroda">Bank of Baroda</option>
+                </select>
+
+                <label>Customer Name</label>
+                <input type="text" id="bankName" value="{{ fullName }}" readonly>
+
+                <label>Amount (₹)</label>
+                <input type="text" id="bankAmount" value="{{ amount }}" readonly>
+
+                <button type="submit" class="pay-btn">Continue Banking</button>
+            </form>
+
+            <!-- QR PAYMENT -->
+            <div id="qrSection" class="section">
+                <label>Total Amount (₹)</label>
+                <input type="text" id="qrAmount" value="{{ amount }}" readonly>
+
+                <div class="qr-area">
+                    <div class="timer-badge">
+                        QR Code expires in: <span id="countdownTimer">03:00</span>
+                    </div>
+
+                    <div id="qrcode"></div>
+
+                    <p id="qrHelperText" style="margin-top:15px; font-size:14px; color:#555;">
+                        Scan with GPay, PhonePe, Paytm, or BHIM to pay <strong>hetu1816@fam</strong>
+                    </p>
+
+                    <div class="listening-text">
+                        <span class="listening-indicator"></span>
+                        Waiting for payment confirmation... Do not refresh.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUCCESS PAGE -->
+    <div class="success-page" id="successPage">
+        <div class="success-icon">✓</div>
+        <h2>Payment Successful</h2>
+        <p>Your booking for <strong>{{ location }}</strong> at <strong>{{ hotelName }}</strong> is confirmed.</p>
+
+        <div class="receipt">
+            <p><strong>Transaction ID :</strong> <span id="txn"></span></p>
+            <p><strong>Customer :</strong> <span id="customer"></span></p>
+            <p><strong>Location :</strong> {{ location }}</p>
+            <p><strong>Hotel :</strong> {{ hotelName }}</p>
+            <p><strong>Amount :</strong> ₹<span id="amount"></span></p>
+            <p><strong>Method :</strong> <span id="method"></span></p>
+            <p><strong>Status :</strong> Successful</p>
+        </div>
+
+        <div class="buttons">
+            <a href="{% url 'home' %}">
+                <button class="home-btn">Go Home</button>
+            </a>
+            <button class="pdf-btn" onclick="downloadPDF()">Download PDF</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let currentOrderId = "";
+let countdownInterval = null;
+let pollInterval = null;
+const QR_EXPIRE_SECONDS = 180; // 3 minutes
+
+function showSection(id){
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+
+    if(id === 'qrSection'){
+        generateDynamicQR();
+    } else {
+        stopTimers();
+    }
+}
+
+function stopTimers(){
+    clearInterval(countdownInterval);
+    clearInterval(pollInterval);
+}
+
+// Auto format card number with spaces (1111 2222 3333 4444)
+function formatCardNumber(input){
+    let value = input.value.replace(/\D/g, '').substring(0, 16);
+    let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+    input.value = formatted;
+}
+
+// Auto format MM/YY expiry
+function formatExpiry(input){
+    let value = input.value.replace(/\D/g, '').substring(0, 4);
+    if(value.length >= 2){
+        input.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    } else {
+        input.value = value;
+    }
+}
+
+// Dynamic QR Generator
+function generateDynamicQR(){
+    stopTimers();
+
+    currentOrderId = "TXN" + Date.now().toString().slice(-6) + Math.floor(1000 + Math.random() * 9000);
+    let amount = document.getElementById("qrAmount").value;
+    let upiID = "hetu1816@fam";
+    let payeeName = "Het Prajapati";
+    let note = "Booking " + currentOrderId;
+
+    let upiString = `upi://pay?pa=${upiID}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}&tr=${currentOrderId}`;
+
+    document.getElementById("qrcode").innerHTML = "";
+    new QRCode(document.getElementById("qrcode"), {
+        text: upiString,
+        width: 220,
+        height: 220,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+    startTimer(QR_EXPIRE_SECONDS);
+    startAutoPolling(currentOrderId);
+}
+
+function startTimer(duration){
+    let timeLeft = duration;
+    const timerElement = document.getElementById("countdownTimer");
+
+    countdownInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerElement.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (--timeLeft < 0) {
+            stopTimers();
+            generateDynamicQR();
+        }
+    }, 1000);
+}
+
+function startAutoPolling(orderId){
+    pollInterval = setInterval(async () => {
+        try {
+            /*
+            const res = await fetch(`/api/check-payment-status/?order_id=${orderId}`);
+            const data = await res.json();
+            if(data.status === "COMPLETED") {
+                stopTimers();
+                success("{{ fullName }}", document.getElementById("qrAmount").value, "Dynamic UPI QR", orderId);
+            }
+            */
+        } catch (err) {
+            console.error("Polling error:", err);
+        }
+    }, 3000);
+}
+
+// Complete payment & fill receipt
+function success(name, amount, method, customTxn = null){
+    stopTimers();
+    let txn = customTxn || ("TXN" + Math.floor(100000000 + Math.random()*900000000));
+    document.getElementById("txn").innerText = txn;
+    document.getElementById("customer").innerText = name;
+    document.getElementById("amount").innerText = amount;
+    document.getElementById("method").innerText = method;
+
+    document.getElementById("paymentPage").style.display = "none";
+    document.getElementById("successPage").style.display = "block";
+}
+
+// Validates card entries before submitting
+function cardPayment(){
+    let name = document.getElementById("cardName").value.trim();
+    let cardNum = document.getElementById("cardNumber").value.replace(/\s+/g, '');
+    let expiry = document.getElementById("cardExpiry").value.trim();
+    let cvv = document.getElementById("cardCVV").value.trim();
+    let amount = document.getElementById("cardAmount").value;
+
+    if(!name){
+        alert("Please enter the cardholder name.");
+        return;
+    }
+    if(cardNum.length !== 16){
+        alert("Please enter a valid 16-digit card number.");
+        return;
+    }
+    if(!/^\d{2}\/\d{2}$/.test(expiry)){
+        alert("Please enter a valid expiry date (MM/YY).");
+        return;
+    }
+    if(cvv.length < 3){
+        alert("Please enter a valid CVV.");
+        return;
+    }
+
+    let masked = "Card ending in " + cardNum.slice(-4);
+    success(name, amount, masked);
+}
+
+// Bank Payment handler
+function bankPayment(){
+    let name = document.getElementById("bankName").value;
+    let bank = document.getElementById("bankSelect").value;
+    let amount = document.getElementById("bankAmount").value;
+    success(name, amount, "Net Banking (" + bank + ")");
+}
+
+function downloadPDF(){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFillColor(106,17,203);
+    doc.rect(0,0,210,40,'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(22);
+    doc.text("HOTEL BOOKING RECEIPT", 20, 25);
+
+    doc.setTextColor(0,0,0);
+    doc.setFontSize(14);
+    doc.text("Transaction ID : " + document.getElementById("txn").innerText, 20, 60);
+    doc.text("Customer Name  : " + document.getElementById("customer").innerText, 20, 75);
+    doc.text("Location       : {{ location }}", 20, 90);
+    doc.text("Hotel Name     : {{ hotelName }}", 20, 105);
+    doc.text("Amount Paid    : ₹" + document.getElementById("amount").innerText, 20, 120);
+    doc.text("Payment Method : " + document.getElementById("method").innerText, 20, 135);
+    doc.text("Status         : Successful", 20, 150);
+
+    doc.save("Hotel_Booking_Receipt.pdf");
+}
+</script>
+
+</body>
+</html>
+
+

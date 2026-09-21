@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Peninsula Beijing</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: #fff;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
+            text-align: center;
+        }
+        h1 {
+            color: #ffd700;
+            font-size: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .image:hover {
+            transform: scale(1.05);
+        }
+        .rating {
+            font-size: 22px;
+            color: #ffd700;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .description {
+            text-align: justify;
+            color: #bdbdbd;
+            line-height: 1.8;
+            font-size: 18px;
+            padding: 10px;
+        }
+        .features {
+            margin: 25px 0;
+            padding: 15px;
+            background: #252525;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+            font-size: 17px;
+        }
+        .features li {
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features li::before {
+            content: "✔ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .buttons {
+            margin-top: 25px;
+        }
+        .buttons a {
+            text-decoration: none;
+            margin: 10px;
+        }
+        .buttons button {
+            background: linear-gradient(to right, #d4af37, #ffd700);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .buttons button:hover {
+            background: linear-gradient(to right, #ffd700, #d4af37);
+            transform: scale(1.05);
+        }
+        .buttons .details {
+            background: linear-gradient(to right, #1d976c, #93f9b9);
+        }
+        .buttons .details:hover {
+            background: linear-gradient(to right, #93f9b9, #1d976c);
+        }
+        .location iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Peninsula Beijing</h1>
+        <div class="image-container">
+            <img src="{% static 'Images/China/Hotal/1.jfif' %}"  alt="The Peninsula Beijing" class="image">
+        </div>
+        <div class="rating">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+        
+        <p class="description">
+            <strong>The Peninsula Beijing</strong> combines traditional Chinese architectural artistry with modern luxury in the heart of Beijing's premier shopping district, Wangfujing. Renowned as an all-suite hotel, it features lavish accommodations, Michelin-starred Cantonese dining at <strong>Jing</strong> and <strong>Huang Ting</strong>, bespoke guest experiences, and the celebrated <strong>Peninsula Spa</strong>.
+        </p>
+
+        <h2>Hotel Features & Amenities</h2>
+        <div class="features">
+            <ul>
+                <li>All-Suite Accommodations with Integrated In-Room Smart Technology</li>
+                <li>Michelin-Starred Cantonese Dining at Huang Ting & French Gastronomy at Jing</li>
+                <li>Signature Peninsula Afternoon Tea in the Grand Lobby</li>
+                <li>Holistic Wellness at The Peninsula Spa and Fitness Centre</li>
+                <li>Heated Indoor Swimming Pool</li>
+                <li>Bespoke Concierge Services & Peninsula Fleet Transport</li>
+                <li>Prime Walking Distance to Wangfujing and the Forbidden City</li>
+            </ul>
+        </div>
+
+        <h2>Location</h2>
+        <div class="location">
+            <p><strong>Address:</strong> 8 Goldfish Lane, Wangfujing, Dongcheng District, Beijing, China</p>
+            <iframe 
+                src="https://www.google.com/maps?q=The+Peninsula+Beijing&output=embed" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="buttons">
+            <a href="/booking.html">
+                <button>Book Now</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

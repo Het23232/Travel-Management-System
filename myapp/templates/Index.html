@@ -1,0 +1,1223 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel website</title>
+
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+<style>
+    /* Reset & Base Body */
+    body {
+        padding-top: 75px;
+        background: #f9f9f9;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /* Main wrapper for Apple Page Down effect */
+    #pageWrapper {
+        transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1), filter 0.6s cubic-bezier(0.32, 0.72, 0, 1), border-radius 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        transform-origin: top center;
+        background: #f9f9f9;
+        min-height: 100vh;
+    }
+
+    body.apple-modal-open {
+        overflow: hidden;
+        background: #000;
+    }
+
+    body.apple-modal-open #pageWrapper {
+        transform: scale(0.96) translateY(10px);
+        filter: brightness(0.7) blur(2px);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    /* Fixed Navbar */
+    #navbar {
+        background: #b74f4f;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    #logo {
+        font-size: 40px;
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+    }
+
+    #logo span {
+        color: orange;
+    }
+
+    #navbar .nav-link {
+        color: black;
+        font-weight: bold;
+        margin-left: 10px;
+        transition: 0.3s;
+    }
+
+    #navbar .nav-link:hover {
+        color: white;
+    }
+
+    #navbar .btn {
+        background: orange;
+        color: white;
+        border: none;
+    }
+
+    #navbar .btn:hover {
+        background: darkorange;
+    }
+
+    #navbar .form-select {
+        cursor: pointer;
+    }
+
+    /* Home Hero Section */
+    .home {
+        min-height: 550px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .home .content {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Titles */
+    .main-text h1, .main-txt h1 {
+        text-align: center;
+        margin: 40px 0;
+        font-weight: 600;
+    }
+
+    .main-text span, .main-txt span {
+        color: orange;
+    }
+
+    /* Package Section Pop-up and Background Blur Effect */
+    .Package {
+        position: relative;
+    }
+
+    .Package .row {
+        position: relative;
+    }
+
+    .Package .row::after {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        right: -20px;
+        bottom: -20px;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 1;
+        border-radius: 15px;
+    }
+
+    .Package .row:hover::after {
+        opacity: 1;
+    }
+
+    .Package .card-col {
+        position: relative;
+        z-index: 0;
+        transition: z-index 0.3s;
+    }
+
+    .Package .card-col:hover {
+        z-index: 10;
+    }
+
+    .Package .card {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+    }
+
+    .Package .card-col:hover .card {
+        transform: scale(1.08);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .Package .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .Package .card-body p {
+        min-height: 48px;
+        margin-bottom: 12px;
+    }
+
+    .Package .star i.chacked,
+    .details-star i.chacked {
+        color: orange;
+    }
+
+    /* Gallery Section Styles */
+    .Gallery {
+        padding: 40px 0;
+    }
+
+    .gallery-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        height: 250px;
+        width: 100%;
+    }
+
+    .gallery-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .gallery-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .gallery-card .overlay {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 12px;
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        text-align: center;
+        font-weight: 600;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .gallery-card:hover .overlay {
+        opacity: 1;
+    }
+
+    .gallery-card a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Apple-Style Page Sheet Overlay Modal */
+    .apple-sheet-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10000;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        visibility: hidden;
+        pointer-events: none;
+        transition: visibility 0.6s step-end;
+    }
+
+    .apple-sheet-modal.active {
+        visibility: visible;
+        pointer-events: auto;
+        transition: visibility 0s step-start;
+    }
+
+    .apple-sheet-content {
+        width: 100%;
+        max-width: 900px;
+        height: 88vh;
+        background: #ffffff;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+        transform: translateY(100%);
+        transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+        overflow-y: auto;
+        position: relative;
+        padding: 30px;
+    }
+
+    .apple-sheet-modal.active .apple-sheet-content {
+        transform: translateY(0);
+    }
+
+    .sheet-handle {
+        width: 40px;
+        height: 5px;
+        background: #ccc;
+        border-radius: 10px;
+        margin: 0 auto 20px auto;
+        cursor: pointer;
+    }
+
+    .btn-close-apple {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        background: #f0f0f0;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-close-apple:hover {
+        background: #e0e0e0;
+    }
+
+    .modal-hero-img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin-bottom: 20px;
+    }
+</style>
+
+</head>
+<body>
+
+<div id="pageWrapper">
+
+    <!-- Navbar start -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}" id="logo">
+                <span>T</span>ravel
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mynavbar">
+                <span><i class="fa-solid fa-bars"></i></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mynavbar">
+
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'booking' %}">Book</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Package">Packages</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Gallery">Gallery</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#About">About</a>
+                    </li>
+                </ul>
+
+                <!-- Dropdown Search Form -->
+                <form class="d-flex" id="searchForm" onsubmit="searchDestination(event)">
+                    <select class="form-select me-2" id="destinationSelect" required>
+                        <option value="" disabled selected>Select Destination</option>
+                        <option value="pkg-uk">United Kingdom</option>
+                        <option value="pkg-france">France</option>
+                        <option value="pkg-dubai">Dubai</option>
+                        <option value="pkg-italy">Italy</option>
+                        <option value="pkg-kashmir">Kashmir, India</option>
+                        <option value="pkg-usa">United States</option>
+                        <option value="pkg-seville">Seville</option>
+                        <option value="pkg-singapore">Singapore</option>
+                        <option value="pkg-turkey">Turkey</option>
+                        <option value="pkg-china">China</option>
+                        <option value="pkg-germany">Germany</option>
+                        <option value="pkg-monaco">Monaco City</option>
+                    </select>
+                    <button class="btn" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav> <!-- Navbar End-->
+
+
+    <!-- Home section start -->
+    <div class="home"
+         style="
+            background-image:
+            linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+            url('{% static "Images/1.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+         ">
+
+        <div class="content">
+            <h5>Welcome to the world</h5>
+
+            <h1>
+                visit <span class="changecontent"></span>
+            </h1>
+
+            <p>
+                Explore beautiful destinations around the world
+                with our travel packages.
+            </p>
+
+            <a href="{% url 'booking' %}" class="btn btn-warning text-white fw-bold px-4 py-2 rounded-pill">Book Place</a>
+        </div>
+
+    </div>
+    <!-- Home section End -->
+
+
+    <!-- section Package start  -->
+    <section class="Package" id="Package">
+    <div class="container">
+        <div class="main-text">
+            <h1><span>P</span>ackages</h1>
+        </div>
+
+        <div class="row g-4 justify-content-center" style="margin-top: 10px;">
+
+            <!-- United Kingdom -->
+            <div class="col-md-4 card-col" id="pkg-uk">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/3.jpg' %}" class="card-img-top" alt="United Kingdom">
+                    <div class="card-body d-flex flex-column">
+                        <h3>United Kingdom</h3>
+                        <p>The United Kingdom, made up of England, Scotland, Wales and Northern Ireland...</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹2,20,000</span>
+                            <span class="fw-bold text-warning fs-5">₹1,85,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=UK" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="United Kingdom"
+                                    data-img="{% static 'Images/3.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹1,85,000"
+                                    data-desc="Experience historical landmarks like Big Ben, London Bridge, and majestic Scottish Highlands with fully guided tours.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- France -->
+            <div class="col-md-4 card-col" id="pkg-france">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/4.jpg' %}" class="card-img-top" alt="France">
+                    <div class="card-body d-flex flex-column">
+                        <h3>France</h3>
+                        <p>France, in Western Europe, encompasses medieval cities, alpine villages and Mediterranean beaches...</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,95,000</span>
+                            <span class="fw-bold text-warning fs-5">₹1,65,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=France" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="France"
+                                    data-img="{% static 'Images/4.jpg' %}"
+                                    data-stars="5"
+                                    data-price="₹1,65,000"
+                                    data-desc="Explore the romantic streets of Paris, Eiffel Tower, French Riviera beaches, and world-class culinary experiences.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dubai -->
+            <div class="col-md-4 card-col" id="pkg-dubai">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/5.jpg' %}" class="card-img-top" alt="Dubai">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Dubai</h3>
+                        <p>Dubai is known for luxury shopping, ultramodern architecture and vibrant nightlife.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹72,000</span>
+                            <span class="fw-bold text-warning fs-5">₹55,000 + GST</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Dubai" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Dubai"
+                                    data-img="{% static 'Images/5.jpg' %}"
+                                    data-stars="5"
+                                    data-price="₹55,000 + GST"
+                                    data-desc="Unmatched luxury with Burj Khalifa, desert safaris, luxury yacht cruises, and premium shopping festivals.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Italy -->
+            <div class="col-md-4 card-col" id="pkg-italy">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/6.jpg' %}" class="card-img-top" alt="Italy">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Italy</h3>
+                        <p>Italy is famous for history, architecture, and delicious cuisine.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,75,000</span>
+                            <span class="fw-bold text-warning fs-5">₹1,45,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Italy" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Italy"
+                                    data-img="{% static 'Images/6.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹1,45,000"
+                                    data-desc="Visit the Colosseum in Rome, romantic Venice gondolas, Florence art museums, and authentic Italian dining.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kashmir -->
+            <div class="col-md-4 card-col" id="pkg-kashmir">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/7.jpg' %}" class="card-img-top" alt="Kashmir">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Kashmir, India</h3>
+                        <p>Known as paradise on earth with lakes, gardens, and mountains.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹45,000</span>
+                            <span class="fw-bold text-warning fs-5">₹32,500</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Kashmir" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Kashmir, India"
+                                    data-img="{% static 'Images/7.jpg' %}"
+                                    data-stars="5"
+                                    data-price="₹32,500"
+                                    data-desc="Paradise on Earth featuring Dal Lake Shikara rides, Gulmarg snow sports, and breathtaking Himalayan scenery.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- USA -->
+            <div class="col-md-4 card-col" id="pkg-usa">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/8.jpg' %}" class="card-img-top" alt="USA">
+                    <div class="card-body d-flex flex-column">
+                        <h3>United States</h3>
+                        <p>Explore diverse landscapes and famous landmarks across the USA.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹2,60,000</span>
+                            <span class="fw-bold text-warning fs-5">₹2,25,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=US" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="United States"
+                                    data-img="{% static 'Images/8.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹2,25,000"
+                                    data-desc="Cross-country adventure covering New York skyline, Grand Canyon, Las Vegas, and California coastlines.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seville -->
+            <div class="col-md-4 card-col" id="pkg-seville">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/9.jpg' %}" class="card-img-top" alt="Seville">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Seville</h3>
+                        <p>Famous for architecture, flamenco, and Spanish culture.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,60,000</span>
+                            <span class="fw-bold text-warning fs-5">₹1,35,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Seville" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Seville"
+                                    data-img="{% static 'Images/9.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹1,35,000"
+                                    data-desc="Discover rich Andalusian heritage, classic Flamenco performances, and beautiful Spanish palaces.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Singapore -->
+            <div class="col-md-4 card-col" id="pkg-singapore">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/10.jpg' %}" class="card-img-top" alt="Singapore">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Singapore</h3>
+                        <p>Modern city with futuristic attractions and clean environment.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹68,000</span>
+                            <span class="fw-bold text-warning fs-5">₹52,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Singapore" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Singapore"
+                                    data-img="{% static 'Images/10.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹52,000"
+                                    data-desc="Futuristic urban getaway with Gardens by the Bay, Marina Bay Sands, and Sentosa Island attractions.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Turkey -->
+            <div class="col-md-4 card-col" id="pkg-turkey">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/11.jpg' %}" class="card-img-top" alt="Turkey">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Turkey</h3>
+                        <p>Historic sites like Hagia Sophia and Cappadocia landscapes.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,10,000</span>
+                            <span class="fw-bold text-warning fs-5">₹85,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Turkey" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Turkey"
+                                    data-img="{% static 'Images/11.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹85,000"
+                                    data-desc="Hot air balloon rides over Cappadocia, Bosphorus Strait cruises, and historical Istanbul exploration.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- China -->
+            <div class="col-md-4 card-col" id="pkg-china">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/12.jpg' %}" class="card-img-top" alt="China">
+                    <div class="card-body d-flex flex-column">
+                        <h3>China</h3>
+                        <p>Home to Great Wall and modern cities like Shanghai.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,20,000</span>
+                            <span class="fw-bold text-warning fs-5">₹95,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=China" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="China"
+                                    data-img="{% static 'Images/12.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹95,000"
+                                    data-desc="Walk the ancient Great Wall of China, tour Beijing Forbidden City, and explore ultra-modern Shanghai skyline.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Germany -->
+            <div class="col-md-4 card-col" id="pkg-germany">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/13.jpg' %}" class="card-img-top" alt="Germany">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Germany</h3>
+                        <p>Famous for castles, engineering, and scenic beauty.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹1,85,000</span>
+                            <span class="fw-bold text-warning fs-5">₹1,55,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Germany" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Germany"
+                                    data-img="{% static 'Images/13.jpg' %}"
+                                    data-stars="4"
+                                    data-price="₹1,55,000"
+                                    data-desc="Fairytale Bavarian castles, Black Forest nature walks, historic Berlin sites, and local culture tours.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monaco -->
+            <div class="col-md-4 card-col" id="pkg-monaco">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'Images/15.jpg' %}" class="card-img-top" alt="Monaco">
+                    <div class="card-body d-flex flex-column">
+                        <h3>Monaco City</h3>
+                        <p>Luxury destination with casinos, yachts and F1 racing.</p>
+                        <div class="star mb-2">
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                            <i class="fa-solid fa-star chacked"></i>
+                        </div>
+                        <div class="price-box mb-3 d-flex align-items-center gap-2">
+                            <span class="text-muted text-decoration-line-through fs-6">₹2,90,000</span>
+                            <span class="fw-bold text-warning fs-5">₹2,40,000</span>
+                        </div>
+                        <div class="mt-auto d-flex gap-2">
+                            <a href="{% url 'booking' %}?location=Monaco%20City" class="btn btn-outline-primary flex-fill">Book now</a>
+                            <button type="button" class="btn btn-outline-primary flex-fill more-details-btn"
+                                    data-title="Monaco City"
+                                    data-img="{% static 'Images/15.jpg' %}"
+                                    data-stars="5"
+                                    data-price="₹2,40,000"
+                                    data-desc="The pinnacle of Mediterranean luxury with Monte Carlo casinos, superyacht harbors, and Grand Prix circuits.">
+                                More Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- section Package End-->
+
+
+<!-- Section services start -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="main-txt">
+            <h1><span>S</span>ervices</h1>
+        </div>
+
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-hotel"></i>
+                    <div class="card-body">
+                        <h3>Affordable hotel</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-utensils"></i>
+                    <div class="card-body">
+                        <h3>Food & Drinks</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-bullhorn"></i>
+                    <div class="card-body">
+                        <h3>Safty Guide</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-globe-asia"></i>
+                    <div class="card-body">
+                        <h3>Around the world</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-plane"></i>
+                    <div class="card-body">
+                        <h3>Fastest Travel</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 py-3 py-md-0">
+                <div class="card">
+                    <i class="fas fa-hiking"></i>
+                    <div class="card-body">
+                        <h3>Adventures</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, sint.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section services End -->
+
+
+<!-- Section Gallery Start -->
+<section class="Gallery" id="Gallery">
+    <div class="container">
+        <div class="main-text">
+            <h1><span>G</span>allery</h1>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="UK.html">
+                        <img src="{% static 'Images/Gallery/1.jpg' %}" alt="United Kingdom">
+                        <div class="overlay">United Kingdom</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="France.html">
+                        <img src="{% static 'Images/Gallery/2.jpg' %}" alt="France">
+                        <div class="overlay">France</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="dubai.html">
+                        <img src="{% static 'Images/Gallery/3.jpg' %}" alt="Dubai">
+                        <div class="overlay">Dubai</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Italy.html">
+                        <img src="{% static 'Images/Gallery/4.jpg' %}" alt="Italy">
+                        <div class="overlay">Italy</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Kashmir.html">
+                        <img src="{% static 'Images/Gallery/5.jpg' %}" alt="Kashmir">
+                        <div class="overlay">Kashmir</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="US.html">
+                        <img src="{% static 'Images/Gallery/6.jpg' %}" alt="USA">
+                        <div class="overlay">USA</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Seville.html">
+                        <img src="{% static 'Images/Gallery/7.jpg' %}" alt="Seville">
+                        <div class="overlay">Seville</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Singapore.html">
+                        <img src="{% static 'Images/Gallery/8.jpg' %}" alt="Singapore">
+                        <div class="overlay">Singapore</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Turkey.html">
+                        <img src="{% static 'Images/Gallery/9.jpg' %}" alt="Turkey">
+                        <div class="overlay">Turkey</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="China.html">
+                        <img src="{% static 'Images/Gallery/10.jpg' %}" alt="China">
+                        <div class="overlay">China</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Germany.html">
+                        <img src="{% static 'Images/Gallery/11.jpg' %}" alt="Germany">
+                        <div class="overlay">Germany</div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="gallery-card">
+                    <a href="Monaco City.html">
+                        <img src="{% static 'Images/Gallery/12.jpg' %}" alt="Monaco">
+                        <div class="overlay">Monaco</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section Gallery End -->
+
+
+<!-- About Section Start -->
+<section class="About" id="About">
+    <div class="container">
+        <section id="about" style="width:100%; padding:80px 20px;">
+            <div class="container" style="background:#787878; border-radius:15px; padding:50px;">
+                <h1 style="text-align:center; color:white; font-size:55px; font-weight:bold; margin-bottom:60px;">
+                    <span style="color:orange;">A</span>bout Me
+                </h1>
+
+                <div class="row align-items-center">
+                    <div class="col-md-5 text-center">
+                        <img src="{% static 'Images/16.jpg' %}" alt="About Image" style="width:100%; max-width:320px; border-radius:15px; box-shadow:0px 5px 20px rgba(0,0,0,0.4);">
+                    </div>
+
+                    <div class="col-md-7 mt-4 mt-md-0">
+                        <h2 style="color:orange; font-size:38px; margin-bottom:20px; font-weight:bold;">
+                            Hello, I'm a Travel Website Developer
+                        </h2>
+
+                        <p style="color:white; font-size:17px; line-height:32px;">
+                            Welcome to my travel website. I created this website to help people explore beautiful destinations around the world easily and comfortably.
+                        </p>
+
+                        <p style="color:white; font-size:17px; line-height:32px;">
+                            This website provides travel packages, booking services, destination details, galleries, and useful travel information.
+                        </p>
+
+                        <p style="color:white; font-size:17px; line-height:32px;">
+                            I designed this project using HTML, CSS, Bootstrap, Django, and JavaScript to create a modern and responsive website.
+                        </p>
+
+                        <a href="{% static 'Day 2/index-red.html'%}" style="display:inline-block; margin-top:20px; padding:12px 35px; background:orange; color:white; text-decoration:none; border-radius:30px; font-size:18px; font-weight:bold;">
+                            Explore Now
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row mt-5 g-4 align-items-stretch">
+                    <div class="col-md-3">
+                        <div class="contact-card">
+                            <i class="fa-solid fa-phone" style="font-size:40px; color:orange; margin-bottom:20px;"></i>
+                            <h3>Contact</h3>
+                            <p style="font-size:18px; color:#444;">+91 9313222679</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="contact-card">
+                            <i class="fa-solid fa-envelope" style="font-size:40px; color:orange; margin-bottom:20px;"></i>
+                            <h3>Email</h3>
+                            <p style="font-size:18px; color:#444;">hetprajapatib1814@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="contact-card">
+                            <i class="fa-brands fa-linkedin" style="font-size:40px; color:orange; margin-bottom:20px;"></i>
+                            <h3>LinkedIn</h3>
+                            <a href="https://www.linkedin.com/in/het-prajapati-9533a1314" style="text-decoration:none; font-size:18px; color:#0d6efd;">linkedin</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="contact-card">
+                            <i class="fa-brands fa-github" style="font-size:40px; color:orange; margin-bottom:20px;"></i>
+                            <h3>GitHub</h3>
+                            <a href="https://github.com/Het23232" style="text-decoration:none; font-size:18px; color:#0d6efd;">github.com/Het23232</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<!-- About Section End -->
+
+</div> <!-- Complete Page Wrapper Ends Here -->
+
+
+<!-- Apple Style Slide-Up Page Modal -->
+<div class="apple-sheet-modal" id="appleDetailsModal">
+    <div class="apple-sheet-content">
+        <div class="sheet-handle" onclick="closeAppleDetails()"></div>
+        <button class="btn-close-apple" onclick="closeAppleDetails()"><i class="fa-solid fa-xmark"></i></button>
+
+        <img id="detailHeroImg" class="modal-hero-img" src="" alt="Destination">
+        <h1 id="detailTitle" class="fw-bold mb-2">Destination Title</h1>
+        
+        <div id="detailStars" class="details-star mb-3 fs-5"></div>
+        <h4 class="text-primary fw-bold mb-3">Special Offer Price: <span id="detailPrice"></span></h4>
+
+        <hr class="my-4">
+
+        <h5>Overview</h5>
+        <p id="detailDescription" class="lead text-secondary fs-6" style="line-height: 1.8;"></p>
+
+        <h5 class="mt-4">Package Includes</h5>
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i> Luxury Accommodation & Breakfast</li>
+            <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i> Guided Sightseeing & Airport Transfers</li>
+            <li class="list-group-item bg-transparent"><i class="fa-solid fa-check text-success me-2"></i> 24/7 On-Call Support & Travel Insurance</li>
+        </ul>
+
+        <div class="d-flex gap-3">
+            <a href="{% url 'booking' %}" id="modalBookingBtn" class="btn btn-warning text-white fw-bold btn-lg flex-fill rounded-pill">Proceed to Booking</a>
+            <button class="btn btn-light btn-lg flex-fill rounded-pill" onclick="closeAppleDetails()">Close</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<script>
+    // Search Trigger: First scrolls down to Packages card, then triggers Apple animation
+    function searchDestination(event) {
+        event.preventDefault();
+        const selectedValue = document.getElementById('destinationSelect').value;
+
+        if (selectedValue) {
+            const targetElement = document.getElementById(selectedValue);
+
+            if (targetElement) {
+                // Step 1: Smoothly scroll down to the targeted package card in Packages section
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // Step 2: Open Apple Details sheet after smooth scroll finishes (700ms)
+                setTimeout(() => {
+                    const btn = targetElement.querySelector('.more-details-btn');
+                    if (btn) {
+                        const title = btn.dataset.title;
+                        const imgSrc = btn.dataset.img;
+                        const starsCount = parseInt(btn.dataset.stars);
+                        const price = btn.dataset.price;
+                        const description = btn.dataset.desc;
+
+                        openAppleDetails(title, imgSrc, starsCount, price, description);
+                    }
+                }, 700);
+            }
+        }
+    }
+
+    // Event listener for direct manual clicks on "More Details" buttons
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.more-details-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const title = btn.dataset.title;
+                const imgSrc = btn.dataset.img;
+                const starsCount = parseInt(btn.dataset.stars);
+                const price = btn.dataset.price;
+                const description = btn.dataset.desc;
+
+                openAppleDetails(title, imgSrc, starsCount, price, description);
+            });
+        });
+    });
+
+    function openAppleDetails(title, imgSrc, starsCount, price, description) {
+        document.getElementById('detailTitle').innerText = title;
+        document.getElementById('detailHeroImg').src = imgSrc;
+        document.getElementById('detailPrice').innerText = price;
+        document.getElementById('detailDescription').innerText = description;
+
+        // Dynamically update the modal's "Proceed to Booking" button link with location query
+        const bookingBtn = document.getElementById('modalBookingBtn');
+        if (bookingBtn) {
+            let locKey = title;
+            if (title === "United States") locKey = "US";
+            if (title === "Kashmir, India") locKey = "Kashmir";
+            if (title === "United Kingdom") locKey = "UK";
+
+            bookingBtn.href = "{% url 'booking' %}?location=" + encodeURIComponent(locKey);
+        }
+
+        let starsHTML = '';
+        for (let i = 0; i < 5; i++) {
+            if (i < starsCount) {
+                starsHTML += '<i class="fa-solid fa-star chacked me-1"></i>';
+            } else {
+                starsHTML += '<i class="fa-solid fa-star text-muted me-1"></i>';
+            }
+        }
+        document.getElementById('detailStars').innerHTML = starsHTML;
+
+        document.body.classList.add('apple-modal-open');
+        document.getElementById('appleDetailsModal').classList.add('active');
+    }
+
+    function closeAppleDetails() {
+        document.body.classList.remove('apple-modal-open');
+        document.getElementById('appleDetailsModal').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>

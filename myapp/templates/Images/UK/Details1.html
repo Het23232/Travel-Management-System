@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ritz London</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #121212;
+            color: #fff;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
+            text-align: center;
+        }
+        h1 {
+            color: #ffcc00;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .image:hover {
+            transform: scale(1.05);
+        }
+        .rating {
+            font-size: 22px;
+            color: #ffcc00;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .description {
+            text-align: justify;
+            color: #bdbdbd;
+            line-height: 1.8;
+            font-size: 18px;
+            padding: 10px;
+        }
+        .features {
+            margin: 25px 0;
+            padding: 15px;
+            background: #252525;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+            font-size: 17px;
+        }
+        .features li {
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features li::before {
+            content: "✔ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .buttons {
+            margin-top: 25px;
+        }
+        .buttons a {
+            text-decoration: none;
+            margin: 10px;
+        }
+        .buttons button {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .buttons button:hover {
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+            transform: scale(1.05);
+        }
+        .buttons .details {
+            background: linear-gradient(to right, #1d976c, #93f9b9);
+        }
+        .buttons .details:hover {
+            background: linear-gradient(to right, #93f9b9, #1d976c);
+        }
+        .location iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Ritz London</h1>
+        <div class="image-container">
+            <img src="Hotal/1.avif" alt="The Ritz London" class="image">
+        </div>
+        <div class="rating">⭐️⭐️⭐️⭐️⭐️ (4.8/5)</div>
+        
+        <p class="description">
+            The Ritz London is one of the most luxurious and historic hotels in the **heart of London**. Renowned for its **timeless elegance**, the hotel offers **Michelin-star dining**, **sumptuous suites**, and a truly royal experience. Located on **Piccadilly**, it provides the perfect setting for an unforgettable stay in London.
+        </p>
+
+        <h2>Hotel Features & Amenities</h2>
+        <div class="features">
+            <ul>
+                <li>Lavish Rooms & Suites with Classic Decor</li>
+                <li>Michelin-Star Restaurant & Afternoon Tea</li>
+                <li>Exclusive Spa & Wellness Facilities</li>
+                <li>Personalized Butler Service</li>
+                <li>Live Music & Entertainment</li>
+                <li>Prime Location in Central London</li>
+            </ul>
+        </div>
+
+        <h2>Location</h2>
+        <div class="location">
+            <p><strong>Address:</strong> 150 Piccadilly, St. James's, London W1J 9BR, United Kingdom</p>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2482.4945261200925!2d-0.1420951842315981!3d51.5071374183719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876052c7eac9d23%3A0x71ebdd7c86d92923!2sThe%20Ritz%20London!5e0!3m2!1sen!2suk!4v1645689123456!5m2!1sen!2suk" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="buttons">
+             <a href="booking">
+                <button style="background-color: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-right: 5px;">Book Now</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

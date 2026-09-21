@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Your Reservation</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --surface: #ffffff;
+      --background: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --border-focus: #3b82f6;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.04), 0 8px 10px -6px rgb(0 0 0 / 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .booking-wrapper {
+      width: 100%;
+      max-width: 980px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+    }
+
+    /* Left: Form Area */
+    .form-panel {
+      padding: 40px;
+    }
+
+    .header-group {
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: #eff6ff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .header-group h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+    }
+
+    .header-group p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .input-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-container i, 
+    .input-container svg {
+      position: absolute;
+      left: 14px;
+      width: 18px;
+      height: 18px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .custom-control {
+      width: 100%;
+      height: 46px;
+      padding: 0 14px 0 44px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text-main);
+      background-color: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: all 0.15s ease-in-out;
+    }
+
+    select.custom-control {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 38px;
+    }
+
+    .custom-control:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .custom-control[readonly] {
+      background-color: #f1f5f9;
+      color: #475569;
+      cursor: not-allowed;
+      border-color: var(--border);
+    }
+
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background-color: var(--primary);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease, transform 0.05s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Right: Details & Summary Panel */
+    .summary-panel {
+      background: #f8fafc;
+      border-left: 1px solid var(--border);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .summary-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .summary-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .summary-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #475569;
+    }
+
+    .summary-icon-box svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .summary-meta span {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .summary-meta strong {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .perks-list {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .perk-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .perk-item svg {
+      width: 16px;
+      height: 16px;
+      color: #10b981;
+    }
+
+    .security-guarantee {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .booking-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .summary-panel {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding: 30px 24px;
+      }
+      .form-panel {
+        padding: 30px 24px;
+      }
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="booking-wrapper">
+    <!-- Main Form -->
+    <div class="form-panel">
+      <div class="header-group">
+        <div class="badge">
+          <i data-lucide="shield-check"></i> Verified Reservation
+        </div>
+        <h1>Guest & Booking Details</h1>
+        <p>Please enter your information to proceed with the reservation.</p>
+      </div>
+
+      <form method="POST" action="{% url 'booking' %}" class="form-grid">
+        {% csrf_token %}
+
+        <div class="field-group">
+          <label for="fullName">Primary Guest</label>
+          <div class="input-container">
+            <i data-lucide="user"></i>
+            <input type="text" id="fullName" name="fullName" class="custom-control" placeholder="John Doe" required>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="field-group">
+            <label for="email">Email Address</label>
+            <div class="input-container">
+              <i data-lucide="mail"></i>
+              <input type="email" id="email" name="email" class="custom-control" placeholder="john@example.com" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="date">Check-in Date</label>
+            <div class="input-container">
+              <i data-lucide="calendar"></i>
+              <input type="date" id="date" name="date" class="custom-control" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="location">Destination</label>
+          <div class="input-container">
+            <i data-lucide="map-pin"></i>
+            {% if selected_location %}
+              <input type="text" id="location" name="location" class="custom-control" value="{{ selected_location }}" readonly required>
+            {% else %}
+              <select id="location" name="location" class="custom-control" onchange="updateHotelDropdown()" required>
+                <option value="">Select Destination</option>
+                <option value="France">France</option>
+                <option value="UK">United Kingdom</option>
+                <option value="Dubai">Dubai</option>
+                <option value="Italy">Italy</option>
+                <option value="Kashmir">Kashmir</option>
+                <option value="US">United States</option>
+                <option value="Seville">Seville</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Turkey">Turkey</option>
+                <option value="China">China</option>
+                <option value="Germany">Germany</option>
+                <option value="Monaco City">Monaco City</option>
+              </select>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="hotelName">Property / Hotel</label>
+          <div class="input-container">
+            <i data-lucide="building"></i>
+            <select id="hotelName" name="hotelName" class="custom-control" required>
+              <option value="">Select Hotel</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          Continue to Payment
+          <i data-lucide="arrow-right" style="width: 16px; height: 16px;"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Booking Details Sidebar -->
+    <div class="summary-panel">
+      <div>
+        <h2 class="summary-title">Booking Preview</h2>
+        
+        <div class="summary-card">
+          <div class="summary-row">
+            <div class="summary-icon-box">
+              <i data-lucide="map-pin"></i>
+            </div>
+            <div class="summary-meta">
+              <span>Location</span>
+              <strong id="preview-location">Not selected</strong>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <div class="summary-icon-box">
+              <i data-lucide="building"></i>
+            </div>
+            <div class="summary-meta">
+              <span>Selected Hotel</span>
+              <strong id="preview-hotel">Not selected</strong>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <div class="summary-icon-box">
+              <i data-lucide="calendar-days"></i>
+            </div>
+            <div class="summary-meta">
+              <span>Check-in Date</span>
+              <strong id="preview-date">Not specified</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="perks-list">
+          <div class="perk-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>Instant confirmation</span>
+          </div>
+          <div class="perk-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>Complimentary breakfast at selected stays</span>
+          </div>
+          <div class="perk-item">
+            <i data-lucide="check-circle-2"></i>
+            <span>24/7 dedicated concierge assistance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="security-guarantee">
+        <i data-lucide="lock" style="width: 14px; height: 14px;"></i>
+        <span>Encrypted 256-bit SSL transaction</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hotelsByLocation = {
+      "France": ["Hotel Ritz Paris", "Le Meurice", "Shangri-La Hotel Paris", "Hôtel de Crillon"],
+      "UK": ["The Ritz London", "Hilton Manchester Deansgate", "Radisson Blu Glasgow"],
+      "Dubai": ["Burj Al Arab", "Atlantis The Palm", "Jumeirah Beach Hotel"],
+      "Italy": ["Hotel Hassler Roma", "Four Seasons Hotel Firenze", "Gritti Palace, Venice"],
+      "Kashmir": ["The Lalit Grand Palace", "Vivanta Dal View", "The Khyber Himalayan Resort"],
+      "US": ["The Plaza Hotel", "The Beverly Hills Hotel", "Waldorf Astoria Chicago", "The Ritz-Carlton, Washington, D.C."],
+      "Seville": ["Hotel Alfonso XIII", "EME Catedral Hotel", "Hotel Casa 1800 Sevilla"],
+      "Singapore": ["Marina Bay Sands", "Raffles Singapore", "The Fullerton Hotel", "Mandarin Orchard Singapore"],
+      "Turkey": ["Ciragan Palace Kempinski", "Four Seasons Hotel Istanbul", "Museum Hotel Cappadocia"],
+      "China": ["The Peninsula Beijing", "Waldorf Astoria Shanghai", "Shangri-La Guangzhou"],
+      "Germany": ["Hotel Adlon Kempinski Berlin", "Mandarin Oriental Munich", "The Westin Hamburg"],
+      "Monaco City": ["Hotel de Paris Monte-Carlo", "Fairmont Monte Carlo", "Monte-Carlo Bay Hotel & Resort"]
+    };
+
+    function updateHotelDropdown(selectedLoc) {
+      const locationElem = document.getElementById("location");
+      const location = selectedLoc || (locationElem ? locationElem.value : "");
+      const hotelDropdown = document.getElementById("hotelName");
+
+      hotelDropdown.innerHTML = '<option value="">Select Hotel</option>';
+
+      if (location && hotelsByLocation[location]) {
+        hotelsByLocation[location].forEach(hotel => {
+          const option = document.createElement("option");
+          option.value = hotel;
+          option.text = hotel;
+          hotelDropdown.appendChild(option);
+        });
+      }
+
+      // Live summary update
+      document.getElementById("preview-location").textContent = location || "Not selected";
+      document.getElementById("preview-hotel").textContent = "Not selected";
+    }
+
+    // Dynamic summary triggers
+    document.getElementById("hotelName").addEventListener("change", function(e) {
+      document.getElementById("preview-hotel").textContent = e.target.value || "Not selected";
+    });
+
+    document.getElementById("date").addEventListener("change", function(e) {
+      if (e.target.value) {
+        const d = new Date(e.target.value);
+        document.getElementById("preview-date").textContent = d.toLocaleDateString(undefined, { 
+          month: 'short', 
+          day: 'numeric', 
+          year: 'numeric' 
+        });
+      } else {
+        document.getElementById("preview-date").textContent = "Not specified";
+      }
+    });
+
+    window.onload = function() {
+      const preSelectedLoc = "{{ selected_location|default:'' }}";
+      if (preSelectedLoc) {
+        updateHotelDropdown(preSelectedLoc);
+      }
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
+
+
+i want to make the booking page that 

@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singapore Details</title>
+    <style>
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .hotel-card {
+            background: #ffffff;
+            border: 1px solid #eef0f2;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .hotel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+        }
+        .hotel-card img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            display: block;
+        }
+        .hotel-card-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .hotel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 6px 0;
+        }
+        .hotel-desc {
+            font-size: 13.5px;
+            color: #666;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        .hotel-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .hotel-actions a {
+            flex: 1;
+            text-decoration: none;
+        }
+        .btn {
+            width: 100%;
+            border: none;
+            padding: 9px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: opacity 0.2s ease;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn-book {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-details {
+            background-color: #28a745;
+            color: white;
+        }
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        .food-card {
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .food-card img {
+            width: 100%;
+            height: 125px;
+            object-fit: cover;
+            display: block;
+        }
+        .food-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 10px 8px 4px 8px;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .badge-popular {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .badge-veg {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4;">
+
+    <!-- Header -->
+    <header style="background-color: #3C3B6E; color: white; padding: 15px; text-align: center; border-radius: 5px;">
+        <h1>Singapore</h1>
+    </header>
+
+    <!-- Basic Information -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Basic Information</h2>
+        <p><strong>Capital:</strong> Singapore</p>
+        <p><strong>Official Languages:</strong> English, Malay, Mandarin, Tamil</p>
+        <p><strong>Currency:</strong> Singapore Dollar (SGD)</p>
+        <p><strong>Population:</strong> Approx. 5.7 million</p>
+    </section>
+
+    <!-- Hotels -->
+    <section style="background-color: white; padding: 25px; margin-top: 10px; border-radius: 5px;">
+        <h2 style="color: #3C3B6E; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 0;">Hotels Available</h2>
+        <div class="hotel-grid">
+
+            <!-- Hotel 1 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Singapore/hotal/1.webp' %}" alt="Marina Bay Sands">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Marina Bay Sands</div>
+                    <div class="hotel-desc">World-famous luxury icon featuring the world's largest rooftop infinity pool.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Singapore/Details1.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel 2 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Singapore/hotal/2.webp' %}" alt="Raffles Singapore">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Raffles Singapore</div>
+                    <div class="hotel-desc">Storied 19th-century colonial grande dame and the birthplace of the Singapore Sling.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Singapore/Details2.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel 3 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Singapore/hotal/3.webp' %}" alt="The Fullerton Hotel">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">The Fullerton Hotel</div>
+                    <div class="hotel-desc">Magnificent neoclassical heritage landmark overlooking the Marina Bay waterfront.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Singapore/Details3.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel 4 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Singapore/hotal/4.webp' %}" alt="Mandarin Orchard Singapore">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Mandarin Orchard Singapore</div>
+                    <div class="hotel-desc">Upscale modern retreat positioned in the vibrant heart of the Orchard Road retail belt.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Singapore/Details4.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Popular Food and Vegetarian Options -->
+    <section style="background-color: white; padding: 25px; margin-top: 15px; border-radius: 5px;">
+        <h2 style="color: #3C3B6E; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 0;">
+            Popular Food
+        </h2>
+
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/1.png' %}" alt="Hainanese Chicken Rice">
+                <div class="food-name">Hainanese Chicken Rice</div>
+                <span class="badge badge-popular">National Dish</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/2.png' %}" alt="Laksa">
+                <div class="food-name">Katong Laksa</div>
+                <span class="badge badge-popular">Hawker Classic</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/3.png' %}" alt="Satay">
+                <div class="food-name">Satay Skewers</div>
+                <span class="badge badge-popular">Street Favorite</span>
+            </div>
+        </div>
+
+        <h2 style="color: #28a745; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 20px;">
+            Vegetarian Options
+        </h2>
+
+        <div class="food-grid" style="margin-bottom: 0;">
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/v1.png' %}" alt="Vegetarian Laksa">
+                <div class="food-name">Vegetarian Laksa</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/v2.png' %}" alt="Stir-Fried Vegetables">
+                <div class="food-name">Sambal Kangkong</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Singapore/Food/v3.jpg' %}" alt="Vegetarian Bee Hoon">
+                <div class="food-name">Vegetarian Bee Hoon</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Information -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Travel Information</h2>
+        <p>Singapore has an efficient transport system, including the MRT, buses, and taxis. Changi Airport is one of the world's best airports, offering seamless connectivity.</p>
+    </section>
+
+    <!-- Grid Layout -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Grid Layout - Key Information</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Capital:</strong> Singapore</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Population:</strong> 5.7 million</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Currency:</strong> SGD</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Languages:</strong> English, Malay, Mandarin, Tamil</div>
+        </div>
+    </section>
+
+</body>
+</html>

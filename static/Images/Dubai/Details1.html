@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burj Al Arab, Dubai</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background:#121212;
+            color: #fff;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
+            text-align: center;
+        }
+        h1 {
+            color: #f8b400;
+            font-size: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .image-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .image:hover {
+            transform: scale(1.05);
+        }
+        .rating {
+            font-size: 22px;
+            color: #ffcc00;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .description {
+            text-align: justify;
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 18px;
+            padding: 10px;
+        }
+        .features {
+            margin: 25px 0;
+            padding: 15px;
+            background: #252525;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+            font-size: 17px;
+        }
+        .features li {
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features li::before {
+            content: "✔ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .buttons {
+            margin-top: 25px;
+        }
+        .buttons a {
+            text-decoration: none;
+            margin: 10px;
+        }
+        .buttons button {
+            background: linear-gradient(to right, #ffcc00, #f8b400);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .buttons button:hover {
+            background: linear-gradient(to right, #f8b400, #ffcc00);
+            transform: scale(1.05);
+        }
+        .buttons .details {
+            background: linear-gradient(to right, #1d976c, #93f9b9);
+        }
+        .buttons .details:hover {
+            background: linear-gradient(to right, #93f9b9, #1d976c);
+        }
+        .location iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Burj Al Arab, Dubai</h1>
+        <div class="image-container">
+            <img src="Hotal/1.webp" alt="Burj Al Arab, Dubai" class="image">
+        </div>
+        <div class="rating">⭐️⭐️⭐️⭐️⭐️⭐️ (5.0/5)</div>
+        
+        <p class="description">
+            The **Burj Al Arab** is an **iconic 7-star hotel** in **Dubai**, known for its **ultra-luxurious service** and **stunning sail-shaped design**. Situated on a private island, it offers **unparalleled hospitality, opulent suites, and world-class dining**, making it one of the most exclusive hotels in the world.
+        </p>
+
+        <h2>Hotel Features & Amenities</h2>
+        <div class="features">
+            <ul>
+                <li>Luxury Duplex Suites with Panoramic Views</li>
+                <li>Private Beach & Infinity Pools</li>
+                <li>Michelin-Starred Dining & Underwater Restaurant</li>
+                <li>Talise Spa & State-of-the-Art Fitness Center</li>
+                <li>24/7 Butler Service & Personalized Experience</li>
+                <li>World's Largest Atrium & Gold-Laden Interiors</li>
+                <li>Helipad & Rolls-Royce Chauffeur Service</li>
+            </ul>
+        </div>
+
+        <h2>Location</h2>
+        <div class="location">
+            <p><strong>Address:</strong> Jumeirah St, Dubai, United Arab Emirates</p>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2319.432158303577!2d55.18529531566773!3d25.14159828390732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6927e8a4a3eb%3A0xf86fdc563ebef0d5!2sBurj%20Al%20Arab!5e0!3m2!1sen!2sae!4v1645689123456!5m2!1sen!2sae" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="buttons">
+            <a href="/booking.html">
+                <button>Book Now</button>
+            </a>
+            
+        </div>
+    </div>
+</body>
+</html>

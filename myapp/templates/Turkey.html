@@ -1,0 +1,277 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turkey Details</title>
+    <style>
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .hotel-card {
+            background: #ffffff;
+            border: 1px solid #eef0f2;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .hotel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+        }
+        .hotel-card img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+            display: block;
+        }
+        .hotel-card-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .hotel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 6px 0;
+        }
+        .hotel-desc {
+            font-size: 13.5px;
+            color: #666;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        .hotel-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .hotel-actions a {
+            flex: 1;
+            text-decoration: none;
+        }
+        .btn {
+            width: 100%;
+            border: none;
+            padding: 9px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: opacity 0.2s ease;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .btn-book {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-details {
+            background-color: #28a745;
+            color: white;
+        }
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+        .food-card {
+            background: #ffffff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .food-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .food-card img {
+            width: 100%;
+            height: 125px;
+            object-fit: cover;
+            display: block;
+        }
+        .food-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 10px 8px 4px 8px;
+        }
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .badge-popular {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .badge-veg {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4;">
+
+    <!-- Header -->
+    <header style="background-color: #00247d; color: white; padding: 15px; text-align: center; border-radius: 5px;">
+        <h1>Turkey</h1>
+    </header>
+
+    <!-- Basic Information -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Basic Information</h2>
+        <p><strong>Capital:</strong> Ankara</p>
+        <p><strong>Official Language:</strong> Turkish</p>
+        <p><strong>Currency:</strong> Turkish Lira (TRY)</p>
+        <p><strong>Population:</strong> Approx. 85 million</p>
+    </section>
+
+    <!-- Hotels -->
+    <section style="background-color: white; padding: 25px; margin-top: 10px; border-radius: 5px;">
+        <h2 style="color: #00247d; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 0;">Hotels Available</h2>
+        <div class="hotel-grid">
+
+            <!-- Hotel 1 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Turkey/Hotal/1.png' %}" alt="Ciragan Palace Kempinski">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Ciragan Palace Kempinski</div>
+                    <div class="hotel-desc">Restored 19th-century Ottoman imperial palace perched directly on the Bosphorus strait.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Turkey/Details1.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel 2 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Turkey/Hotal/2.png' %}" alt="Four Seasons Hotel Istanbul">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Four Seasons Hotel Istanbul</div>
+                    <div class="hotel-desc">Neoclassical landmark nestled in historic Sultanahmet, steps from the Hagia Sophia.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Turkey/Details2.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hotel 3 -->
+            <div class="hotel-card">
+                <img src="{% static 'Images/Turkey/Hotal/3.png' %}" alt="Museum Hotel Cappadocia">
+                <div class="hotel-card-body">
+                    <div class="hotel-title">Museum Hotel Cappadocia</div>
+                    <div class="hotel-desc">Luxury Relais & Châteaux cave hotel offering panoramic hot air balloon views over the valleys.</div>
+                    <div class="hotel-actions">
+                        <a href="Booking.html">
+                            <button type="button" class="btn btn-book">Book Now</button>
+                        </a>
+                        <a href="{% static 'Images/Turkey/Details3.html' %}">
+                            <button type="button" class="btn btn-details">View Details</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Popular Food and Vegetarian Options -->
+    <section style="background-color: white; padding: 25px; margin-top: 15px; border-radius: 5px;">
+        <h2 style="color: #00247d; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 0;">
+            Popular Food
+        </h2>
+
+        <div class="food-grid">
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/1.jfif' %}" alt="Kebabs">
+                <div class="food-name">Turkish Kebabs</div>
+                <span class="badge badge-popular">Classic</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/2.jfif' %}" alt="Baklava">
+                <div class="food-name">Pistachio Baklava</div>
+                <span class="badge badge-popular">Sweet Treat</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/3.jfif' %}" alt="Meze">
+                <div class="food-name">Turkish Meze Platter</div>
+                <span class="badge badge-popular">Traditional</span>
+            </div>
+        </div>
+
+        <h2 style="color: #28a745; border-bottom: 2px solid #f0f0f0; padding-bottom: 8px; margin-top: 20px;">
+            Vegetarian Options
+        </h2>
+
+        <div class="food-grid" style="margin-bottom: 0;">
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/V1.jfif' %}" alt="İmam Bayıldı">
+                <div class="food-name">İmam Bayıldı</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/V2.jfif' %}" alt="Lentil Soup">
+                <div class="food-name">Mercimek Çorbası</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+
+            <div class="food-card">
+                <img src="{% static 'Images/Turkey/Food/V3.jfif' %}" alt="Börek">
+                <div class="food-name">Spinach & Cheese Börek</div>
+                <span class="badge badge-veg">Vegetarian</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Information -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Travel Information</h2>
+        <p>Turkey has well-developed transport systems including metro lines in Istanbul, Ankara, and Izmir. The country has major international airports such as Istanbul Airport and Sabiha Gökçen Airport. Domestic flights, high-speed YHT trains, intercity buses, and ferries are widely available.</p>
+    </section>
+
+    <!-- Grid Layout -->
+    <section style="background-color: white; padding: 15px; margin-top: 10px; border-radius: 5px;">
+        <h2>Grid Layout - Key Information</h2>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Capital:</strong> Ankara</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Population:</strong> 85 million</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Currency:</strong> TRY</div>
+            <div style="background-color: #e0e0e0; padding: 10px; border-radius: 5px;"><strong>Language:</strong> Turkish</div>
+        </div>
+    </section>
+
+</body>
+</html>

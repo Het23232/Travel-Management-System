@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shangri-La Guangzhou</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0d0d0d;
+            color: #fff;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            color: #e0e0e0;
+            text-align: center;
+        }
+        h1 {
+            color: #ffd700;
+            font-size: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .image:hover {
+            transform: scale(1.05);
+        }
+        .rating {
+            font-size: 22px;
+            color: #ffd700;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .description {
+            text-align: justify;
+            color: #bdbdbd;
+            line-height: 1.8;
+            font-size: 18px;
+            padding: 10px;
+        }
+        .features {
+            margin: 25px 0;
+            padding: 15px;
+            background: #252525;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+            font-size: 17px;
+        }
+        .features li {
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+        }
+        .features li::before {
+            content: "✔ ";
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .buttons {
+            margin-top: 25px;
+        }
+        .buttons a {
+            text-decoration: none;
+            margin: 10px;
+        }
+        .buttons button {
+            background: linear-gradient(to right, #d4af37, #ffd700);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .buttons button:hover {
+            background: linear-gradient(to right, #ffd700, #d4af37);
+            transform: scale(1.05);
+        }
+        .buttons .details {
+            background: linear-gradient(to right, #1d976c, #93f9b9);
+        }
+        .buttons .details:hover {
+            background: linear-gradient(to right, #93f9b9, #1d976c);
+        }
+        .location iframe {
+            width: 100%;
+            height: 350px;
+            border: 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Shangri-La Guangzhou</h1>
+        <div class="image-container">
+            <img src="{% static 'Images/China/Hotels/shangri-la-guangzhou.jpg' %}" alt="Shangri-La Guangzhou" class="image">
+        </div>
+        <div class="rating">⭐️⭐️⭐️⭐️⭐️ (4.7/5)</div>
+        
+        <p class="description">
+            Surrounded by 58,000 square meters of lush landscaped gardens, <strong>Shangri-La Guangzhou</strong> serves as a tranquil urban resort alongside the scenic Pearl River. Situated steps from the Canton Fair Complex, the hotel features panoramic riverfront views, award-winning Cantonese gastronomy at <strong>Summer Palace</strong>, signature treatments at <strong>CHI, The Spa</strong>, and comprehensive resort facilities.
+        </p>
+
+        <h2>Hotel Features & Amenities</h2>
+        <div class="features">
+            <ul>
+                <li>Spacious River-View and Garden-View Rooms & Suites</li>
+                <li>Authentic Cantonese Specialities at Summer Palace & Global Buffets at WOK**121</li>
+                <li>Holistic Treatments and Wellness Journeys at CHI, The Spa</li>
+                <li>Indoor Heated Pool & Outdoor Freeform Lagoon Pool</li>
+                <li>58,000 m² Landscaped Tropical Gardens with Walking Trails</li>
+                <li>Comprehensive Health Club, Tennis Courts, and Jacuzzi</li>
+                <li>Immediate Access to the Canton Fair Complex (Pazhou Exhibition Center)</li>
+            </ul>
+        </div>
+ 
+        <h2>Location</h2>
+        <div class="location">
+            <p><strong>Address:</strong> 1 Hui Zhan Dong Road, Hai Zhu District, Guangzhou, Guangdong, China</p>
+            <iframe 
+                src="https://www.google.com/maps?q=Shangri-La+Guangzhou&output=embed" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="buttons">
+            <a href="/booking.html">
+                <button>Book Now</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

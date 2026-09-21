@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <script>
+        function validatePayment(event) {
+            event.preventDefault(); // Prevents form submission
+
+            let cardName = document.getElementById("cardName").value.trim();
+            let cardNumber = document.getElementById("cardNumber").value.trim();
+            let expiryMonth = document.getElementById("expiryMonth").value.trim();
+            let expiryYear = document.getElementById("expiryYear").value.trim();
+            let cvv = document.getElementById("cvv").value.trim();
+            let amount = document.getElementById("amount").value.trim();
+
+            if (amount === "₹0.00" || cardName === "" || cardNumber === "" || expiryMonth === "" || expiryYear === "" || cvv === "") {
+                alert("Payment failed! Please fill in all fields correctly.");
+                return false;
+            } else {
+                window.location.href = "success.html"; // Redirect only if all fields are valid
+            }
+        }
+    </script>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+    <div style="width: 400px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+        
+        <h2 style="text-align: center; color: #5a9bd5;">Select Payment Method</h2>
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+            <div style="text-align: center; cursor: pointer;">
+                <img src="image.png" alt="Credit Card" style="width: 50px; height: 50px;">
+                <p style="color: green; font-weight: bold;">Credit Card</p>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; color: #5a9bd5;">Credit Card Info</h2>
+        
+        <form onsubmit="validatePayment(event)">
+            <label style="font-weight: bold;">AMOUNT</label>
+            <input type="text" id="amount" value="₹0.00" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label style="font-weight: bold;">NAME ON CARD</label>
+            <input type="text" id="cardName" placeholder="Enter the name" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <label style="font-weight: bold;">CARD NUMBER</label>
+            <input type="text" id="cardNumber" placeholder="0000-0000-0000-0000" style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+            <div style="display: flex; gap: 10px;">
+                <div style="width: 50%;">
+                    <label style="font-weight: bold;">EXPIRATION</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="expiryMonth" placeholder="MM" style="width: 50%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        <input type="text" id="expiryYear" placeholder="YYYY" style="width: 50%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                    </div>
+                </div>
+                <div style="width: 50%;">
+                    <label style="font-weight: bold;">CVV NUMBER</label>
+                    <input type="text" id="cvv" placeholder="***" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            </div>
+
+            
+        </form>
+    </div>
+
+</body>
+</html>

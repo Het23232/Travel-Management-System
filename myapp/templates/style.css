@@ -1,0 +1,472 @@
+*{
+    margin: 0;
+    padding: 0%;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+    /* .roboto-medium {
+        font-family: "Roboto", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+      } */
+      .lato-regular {
+        font-family: "Lato", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      
+}
+/* Navbar start */
+#navbar{
+    background: #bb5252;
+}
+#logo{
+    font-size: 36px;
+    font-weight: 550;
+    color: black;
+    text-shadow: 0px 1px 1px black;
+    margin-bottom: 5px;
+}
+#logo span{
+    color: #ffa500;
+}
+.navbar-toggler span{
+    color: #ffa500;
+}
+.navbar-nav{
+    margin-left: 20px;
+}
+.nav-item .nav-link{
+    font-size: 16px;
+    font-weight: 550;
+    color: black;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    transition: 0.5s ease;
+}
+.nav-item .nav-link:hover{
+    background-color: #ffa500;
+    color: white;
+}
+#navbar form button{
+    background: orange;
+    color: white;
+    border: none;
+}
+/* Navbar End */
+/* =========================
+   HOME SECTION CSS
+========================= */
+
+.home{
+
+    width:100%;
+
+    height:100vh;
+
+    /* BACKGROUND IMAGE */
+
+    background-image:
+
+    linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
+    ),
+
+    url("myapp/static/Images/1.jpg");
+
+    background-repeat:no-repeat;
+
+    background-size:cover;
+
+    background-position:center;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* CONTENT */
+
+.home .content{
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+/* SMALL TITLE */
+
+.home .content h5{
+
+    color:#ffffff;
+
+    font-size:38px;
+
+    font-weight:500;
+
+    letter-spacing:2px;
+
+    text-shadow:0px 2px 8px rgba(0,0,0,0.8);
+
+}
+
+/* MAIN TITLE */
+
+.home .content h1{
+
+    color:#ffffff;
+
+    font-size:72px;
+
+    font-weight:700;
+
+    margin-top:10px;
+
+    text-shadow:0px 3px 10px rgba(0,0,0,0.9);
+
+}
+
+/* CHANGING TEXT */
+
+.changecontent::after{
+
+    content:'';
+
+    color:#ffa500;
+
+    animation:changetext 12s infinite linear;
+
+}
+
+/* TEXT ANIMATION */
+
+@keyframes changetext{
+
+    0%{
+        content:"France";
+    }
+
+    10%{
+        content:"Spain";
+    }
+
+    20%{
+        content:"United States";
+    }
+
+    30%{
+        content:"China";
+    }
+
+    40%{
+        content:"India";
+    }
+
+    50%{
+        content:"Russia";
+    }
+
+    60%{
+        content:"Italy";
+    }
+
+    70%{
+        content:"Singapore";
+    }
+
+    80%{
+        content:"Mexico";
+    }
+
+    90%{
+        content:"Germany";
+    }
+
+    100%{
+        content:"United Kingdom";
+    }
+
+}
+
+/* PARAGRAPH */
+
+.home .content p{
+
+    color:#f9f9f9;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    line-height:1.8;
+
+    margin-top:15px;
+
+    margin-bottom:35px;
+
+    text-shadow:0px 2px 6px rgba(0,0,0,0.8);
+
+}
+
+/* BUTTON */
+
+.home .content a{
+
+    display:inline-block;
+
+    padding:14px 30px;
+
+    background:#ffffff;
+
+    color:#111827;
+
+    border-radius:50px;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    transition:0.4s;
+
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+
+}
+
+/* BUTTON HOVER */
+
+.home .content a:hover{
+
+    background:#ffa500;
+
+    color:white;
+
+    transform:translateY(-5px);
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px){
+
+    .home{
+
+        background-position:center;
+
+    }
+
+    .home .content h5{
+
+        font-size:24px;
+
+    }
+
+    .home .content h1{
+
+        font-size:42px;
+
+    }
+
+    .home .content p{
+
+        font-size:14px;
+
+    }
+
+    .home .content a{
+
+        padding:12px 24px;
+
+        font-size:14px;
+
+    }
+
+}
+
+/* =========================
+   HOME SECTION END
+========================= */
+/* section Book Start */
+.book{
+    background-color: #f9f9f9;
+    padding: 50px;
+}
+.main-text h1{
+    text-align: center;
+    box-shadow: 0px 1px 1px black;
+    font-weight: 600;
+}
+.main-text h1 span{
+    color: #ffa500;
+}
+.book .card{
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px -6px black;
+}
+.book .row{
+    margin-top: 30px;
+}
+.book form input{
+    padding: 10px;
+    color: black;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px -6px black;
+}
+.book form textarea{
+    border: none;
+    border-radius: 10px;
+    resize: none;
+    box-shadow: 0px 5px 5px -6px black;
+}
+.book .submit{
+    width: 160px;
+    font-size: 16px;
+    font-weight: 550;
+    background-color: #ffa500;
+    color: #f9f9f9;
+    margin-top: 10px;
+    transition: 0.5s;
+}
+.book .submit:hover{
+    width: 200px;
+}
+@media(max-width:765px){
+    .book{
+        padding: 0;
+    }
+    .main-text h1{
+        padding: 20px;
+    }
+}
+/* section Book End */
+
+/* Section packages start */
+/* Section Title */
+
+/* ===== FIXED PACKAGE SECTION ===== */
+
+.Package .card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: 0.3s;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hover */
+.Package .card:hover {
+    transform: translateY(-8px);
+}
+
+/* SAME IMAGE SIZE */
+.Package .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* CARD BODY FIX */
+.Package .card .card-body {
+    padding: 15px;
+
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* TEXT */
+.Package .card .card-body h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.Package .card .card-body p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* STARS */
+.chacked {
+    color: #ffa500;
+}
+
+/* PRICE */
+.Package .card .card-body h6 {
+    font-size: 18px;
+}
+
+/* BUTTON CONTAINER */
+.btn-box {
+    margin-top: 10px;
+}
+
+/* BUTTON STYLE */
+.btn-box a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 8px;
+    margin-top: 6px;
+    background: #ffa500;
+    color: white;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+/* SECOND BUTTON STYLE */
+.btn-box a:last-child {
+    background: #007bff;
+}
+
+/* HOVER */
+.btn-box a:hover {
+    opacity: 0.9;
+}
+/* Section packages End */
+
+
+
+/* Section services start */
+
+.services{
+    background: #f9f9f9;
+    margin-top: 50px;
+}
+.services .card{
+    box-shadow: 0px 5px 5px -6px black;
+    border: none;
+    cursor: pointer;
+}
+.services .card i{
+    font-size: 80px;
+    text-align: center;
+    color: #ffa500;
+    margin-top: 20px;
+}
+.services .card .card-body{
+    text-align: center;
+}
+/* Section services End */
+
+
+/* Section gallery start */
+
+/* Section gallery End */
